@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      STACK_VERSION: 7.17.0
+      STACK_VERSION: 8.0.0
     steps:
       - uses: actions/checkout@master
 
