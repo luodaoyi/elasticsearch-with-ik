@@ -6,7 +6,7 @@
 1. 集成 ik分词器 https://github.com/medcl/elasticsearch-analysis-ik
 
 
-## 使用编译好的docker镜像 支持amd64和i386
+## 使用编译好的docker镜像 支持amd64和arm64/v8
 
 > https://github.com/luodaoyi/elasticsearch-with-ik/pkgs/container/elasticsearch-with-ik
 
