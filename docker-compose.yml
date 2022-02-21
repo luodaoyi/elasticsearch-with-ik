@@ -2,7 +2,7 @@ version: "2.2"
 
 services:
   setup:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    image: ${ES_IMAGE}:${STACK_VERSION}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
     user: "0"
@@ -66,16 +66,11 @@ services:
     depends_on:
       setup:
         condition: service_healthy
-    #image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      args:
-        STACK_VERSION: ${STACK_VERSION}
+    image: ${ES_IMAGE}:${STACK_VERSION}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata01:/usr/share/elasticsearch/data
-      - esplugins01:/usr/share/elasticsearch/plugins
+      - ./IKAnalyzer.cfg.xml:/usr/share/elasticsearch/config/analysis-ik/IKAnalyzer.cfg.xml:ro
     ports:
       - ${ES_PORT}:9200
     environment:
@@ -115,16 +110,11 @@ services:
   es02:
     depends_on:
       - es01
-    #image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      args:
-        STACK_VERSION: ${STACK_VERSION}
+    image: ${ES_IMAGE}:${STACK_VERSION}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata02:/usr/share/elasticsearch/data
-      - esplugins02:/usr/share/elasticsearch/plugins
+      - ./IKAnalyzer.cfg.xml:/usr/share/elasticsearch/config/analysis-ik/IKAnalyzer.cfg.xml:ro
     environment:
       - node.name=es02
       - cluster.name=${CLUSTER_NAME}
@@ -161,16 +151,11 @@ services:
   es03:
     depends_on:
       - es02
-    #image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      args:
-        STACK_VERSION: ${STACK_VERSION}
+    image: ${ES_IMAGE}:${STACK_VERSION}
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata03:/usr/share/elasticsearch/data
-      - esplugins03:/usr/share/elasticsearch/plugins
+      - ./IKAnalyzer.cfg.xml:/usr/share/elasticsearch/config/analysis-ik/IKAnalyzer.cfg.xml:ro
     environment:
       - node.name=es03
       - cluster.name=${CLUSTER_NAME}
@@ -237,15 +222,12 @@ services:
 
 volumes:
   certs:
-    #driver: local
+    driver: local
   esdata01:
-    #driver: local
-  esplugins01:
+    driver: local
   esdata02:
-    #driver: local
-  esplugins02:
+    driver: local
   esdata03:
-    #driver: local
-  esplugins03:
+    driver: local
   kibanadata:
-    #driver: local
+    driver: local
