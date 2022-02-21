@@ -1,5 +1,5 @@
 ARG STACK_VERSION=8.0.0
-FROM docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+FROM elasticsearch:${STACK_VERSION}
 
 ENV STACK_VERSION=8.0.0
 RUN set -x ; echo "build ik plugin image with version: $STACK_VERSION"
