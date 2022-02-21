@@ -39,8 +39,8 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64/v8
           push: true
-          build-args:
-            STACK_VERSION: $ES_VERSION
+          build-args: |
+            STACK_VERSION=$ES_VERSION
           tags: |
             ${{ steps.image-name.outputs.GHRC_IMAGE_NAME }}
             ${{ steps.image-name.outputs.GHRC_IMAGE_NAME_LATEST }}
