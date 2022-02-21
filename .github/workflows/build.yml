@@ -2,12 +2,11 @@ name: Build Image
 
 on: push
 
-env:
-  STACK_VERSION: 8.0.0
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      STACK_VERSION: 8.0.0
     steps:
       - uses: actions/checkout@master
 
@@ -26,7 +25,7 @@ jobs:
 
       - name: Set up image name
         run: |
-          GHRC_IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}:${{ STACK_VERSION }}" | tr '[:upper:]' '[:lower:]')
+          GHRC_IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}:${{ env.STACK_VERSION }}" | tr '[:upper:]' '[:lower:]')
           GHRC_IMAGE_NAME_LATEST=$(echo "ghcr.io/${{ github.repository }}:latest" | tr '[:upper:]' '[:lower:]')
           echo "::set-output name=GHRC_IMAGE_NAME::$GHRC_IMAGE_NAME"
           echo "::set-output name=GHRC_IMAGE_NAME_LATEST::$GHRC_IMAGE_NAME_LATEST"
@@ -39,7 +38,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64/v8
           push: true
-          build-args: STACK_VERSION=${{STACK_VERSION}}
+          build-args: STACK_VERSION=${{ env.STACK_VERSION }}
           tag_with_ref: true
           tag_with_sha: true
           add_git_labels: true
