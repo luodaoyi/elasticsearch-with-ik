@@ -3,7 +3,7 @@ name: Build Image
 on: push
 
 env:
-  STACK_VERSION: 8.0.0
+  ES_VERSION: 8.0.0
 
 jobs:
   build:
@@ -26,7 +26,7 @@ jobs:
 
       - name: Set up image name
         run: |
-          GHRC_IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}:${{ STACK_VERSION }}" | tr '[:upper:]' '[:lower:]')
+          GHRC_IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}:${{ ES_VERSION }}" | tr '[:upper:]' '[:lower:]')
           GHRC_IMAGE_NAME_LATEST=$(echo "ghcr.io/${{ github.repository }}:latest" | tr '[:upper:]' '[:lower:]')
           echo "::set-output name=GHRC_IMAGE_NAME::$GHRC_IMAGE_NAME"
           echo "::set-output name=GHRC_IMAGE_NAME_LATEST::$GHRC_IMAGE_NAME_LATEST"
@@ -40,7 +40,7 @@ jobs:
           platforms: linux/amd64,linux/arm64/v8
           push: true
           build-args:
-            STACK_VERSION: ${{STACK_VERSION}}
+            STACK_VERSION: $ES_VERSION
           tags: |
             ${{ steps.image-name.outputs.GHRC_IMAGE_NAME }}
             ${{ steps.image-name.outputs.GHRC_IMAGE_NAME_LATEST }}
