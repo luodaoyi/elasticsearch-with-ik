@@ -39,7 +39,6 @@ jobs:
           platforms: linux/amd64,linux/arm64/v8
           push: true
           build-args: STACK_VERSION=${{ env.STACK_VERSION }}
-          add_git_labels: true
           tags: |
             ${{ steps.image-name.outputs.GHRC_IMAGE_NAME }}
             ${{ steps.image-name.outputs.GHRC_IMAGE_NAME_LATEST }}
